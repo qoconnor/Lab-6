@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from accounts.forms import EditProfileForm
+from accounts.models import UserProfile
 
 # Create your views here.
 def home(request):
@@ -29,12 +30,18 @@ def view_profile(request):
 
 def edit_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
+        form = EditProfileForm(request.POST)#, instance=request.user)
 
         if form.is_valid():
-            form.save()
+            users = UserProfile.objects.all()
+            user = users.get(user=request.user)
+            user.song = form.cleaned_data['song']
+            user.description = form.cleaned_data['description']
+            user.album = form.cleaned_data['album']
+            user.artist = form.cleaned_data['artist']
+            user.save()
             return redirect('/account/profile')
     else:
-        form = EditProfileForm(instance=request.user)
+        form = EditProfileForm()#instance=request.user)
         args = {'form': form}
         return render(request, 'accounts/edit_profile.html', args)
