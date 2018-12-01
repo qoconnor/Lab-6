@@ -5,10 +5,10 @@ from django.db.models.signals import post_save
 # Create your models here.
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    description = models.CharField(max_length=100, default='')
-    city = models.CharField(max_length=100, default='')
-    website = models.URLField(default='')
-    phone = models.IntegerField(default=0)
+    description = models.CharField(max_length=100, default='a')
+    album = models.CharField(max_length=100, default='a')
+    song = models.CharField(max_length=100, default='a')
+    artist = models.CharField(max_length=100, default='a')
 
 def create_profile(sender, **kwargs):
     if kwargs['created']:

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <title>{{user}}'s Profile</title>
+{% endblock %}
+
+{% block body %}
+<div class="container" align="center">
+<div class="jumbotron" align="left">
+  <b>
+    <div class="container">
+      <h3>{{ user }}'s Profile</h3>
+    </div>
+  </b>
+  <div class="row" style="padding: 10px;">
+    <div class="col-md-4">
+      <u><h5>
+        Favorite Song:
+      </h5></u>
+      <p>
+        {{user.song}}
+      </p>
+    </div>
+    <div class="col-md-4">
+      <u><h5>
+        Favorite Album:
+      </h5></u>
+      <p>
+        {{user.album}}
+      </p>
+    </div>
+    <div class="col-md-4">
+      <u><h5>
+        Favorite Artist:
+      </h5></u>
+      <p>
+        {{user.artist}}
+      </p>
+    </div>
+  </div>
+  <div class="row" style="padding: 10px;">
+    <div class="col-md-8">
+      <u><h3>
+        Bio:
+      </h3></u>
+      <p style="font-size:125%;">
+        {{user.description}}
+      </p>
+    </div>
+  </div>
+  <!--{%if Editable%}
+  <a href="/accounts/edit_profile" class="btn btn-outline-success">
+    Edit profile
+  </a>
+  <a href="/user/change_password" class="btn btn-outline-success">
+    Change Password
+  </a>
+  {%endif%}-->
+</div>
+</div>
+{% endblock %}
