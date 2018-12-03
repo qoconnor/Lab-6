@@ -12,3 +12,12 @@ class EditProfileForm(forms.Form):
 
 class ImageUploadForm(forms.Form):
     image = forms.ImageField()
+
+class CreatePostForm(forms.Form):
+    artwork = forms.ImageField()
+    title = forms.CharField()
+    post = forms.CharField(label='Post:', required=True)
+    album = forms.CharField(label='Album:', required=False)
+    song = forms.CharField(label='Song:', required=False)
+    artist = forms.CharField(label='Artist:', required=False)
+    public = forms.BooleanField()

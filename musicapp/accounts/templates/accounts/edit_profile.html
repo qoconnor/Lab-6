@@ -5,20 +5,20 @@
 {% endblock %}
 
 {% block body %}
-
-<form action="/account/profile_pic/" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-      <p>
-         <input id="id_image" type="file" class="" name="image">
-     </p>
-     <button type="submit">Submit</button>
-</form>
-
   <div class="container">
+
+    <form action="/account/profile_pic/" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+          <p>
+             <input id="id_image" type="file" class="" name="image">
+         </p>
+         <button type="submit">Submit</button>
+    </form>
+
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button class="btn btn-success" type="submit" name="button">Submit</button>
+      <button class="btn btn-outline-success" type="submit" name="button">Submit</button>
     </form>
   </div>
 {% endblock %}

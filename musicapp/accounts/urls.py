@@ -15,6 +15,7 @@ urlpatterns = [
     path('profile/', views.view_profile, name='view_profile'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('profile_pic/', views.upload_pic, name='upload_pic'),
+    path('create_post/', views.create_post, name='create_post'),
 ]
 
 #if settings.DEBUG:

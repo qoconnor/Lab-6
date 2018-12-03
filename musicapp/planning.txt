@@ -1,0 +1,25 @@
+Home tab
+  - Shows private posts from friends
+  - Option when making a post to be private (Only friends can view)
+
+New tab
+  - Shows all new posts that are public
+  - Option when making a post to be public (Anyone can see)
+
+Popular Tab
+  - Shows must popular public posts
+
+Friendslist Tab
+  - Can view friends 
+  - Click button next to friend to see their posts
+
+Posts
+  - Post a song/artist/album for discussion (Maybe Spotify or Discogs integration)
+  - Can choose between public and private
+  - Other users can leave comments on a post
+  - Users can like a post (Most likes == Most popular)
+
+Private Message
+  - Private message other users on your friendlist
+  - Inbox/outbox system
+
