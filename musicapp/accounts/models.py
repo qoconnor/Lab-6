@@ -9,6 +9,7 @@ class UserProfile(models.Model):
     album = models.CharField(max_length=100, default='')
     song = models.CharField(max_length=100, default='')
     artist = models.CharField(max_length=100, default='')
+    image = models.ImageField(blank=True, default='default.jpg')
 
 def create_profile(sender, **kwargs):
     if kwargs['created']:
