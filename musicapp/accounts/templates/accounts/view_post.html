@@ -18,6 +18,9 @@
       <div class="col-sm-6">
           <a href="{% url 'users:create_comment' pk=post.pk %}" class="btn btn-primary">Create Comment</a>
         <h3>Comments</h3>
+        {% for comment in comments %}
+          <p>{{comment.commentUser}}: {{comment.comment}}</p>
+        {% endfor %}
       </div>
     </div>
     <p> {{ post.post }} </p>

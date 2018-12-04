@@ -86,7 +86,8 @@ def create_post(request):
 
 def view_post(request, pk):
     post = Posts.objects.get(pk=pk)
-    args = {'post': post}
+    comments = Comments.objects.filter(commentPk=pk)
+    args = {'post': post, 'comments': comments}
     return render(request, 'accounts/view_post.html', args)
 
 def create_comment(request, pk):
@@ -94,10 +95,13 @@ def create_comment(request, pk):
         form = CreateCommentForm(request.POST)
         if form.is_valid():
             obj = Comments.objects.create()
+            obj.commentUser = request.user
             obj.comment = form.cleaned_data['comment']
+            obj.commentPk = pk
             obj.save()
             post = Posts.objects.get(pk=pk)
-            args = {'post': post}
+            comments = Comments.objects.filter(commentPk=pk).order_by("-id")
+            args = {'post': post, 'comments': comments}
             return render(request, 'accounts/view_post.html', args)
     else:
         form = CreateCommentForm()

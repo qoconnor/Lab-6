@@ -30,3 +30,4 @@ class Posts(models.Model):
 class Comments(models.Model):
     commentUser = models.ForeignKey(User, on_delete=models.CASCADE, related_name='commentUser', null=True)
     comment = models.CharField(max_length=300)
+    commentPk = models.IntegerField(default='-1')
