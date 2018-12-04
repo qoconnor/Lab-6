@@ -6,10 +6,8 @@ from accounts.models import UserProfile, Posts
 
 # Create your views here.
 def home(request):
-    numbers = [1,2,3,4,5]
-    name = 'Quinn OConnor'
-
-    args = {'name': name, 'numbers': numbers}
+    posts = Posts.objects.all()
+    args = {'posts': posts}
     return render(request, 'accounts/home.html', args)
 
 def register(request):
@@ -20,7 +18,6 @@ def register(request):
             return redirect('/account')
     else:
         form = UserCreationForm()
-
         args = {'form': form}
         return render(request, 'accounts/reg_form.html', args)
 
