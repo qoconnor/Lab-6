@@ -1,8 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
-from accounts.forms import EditProfileForm, ImageUploadForm, CreatePostForm
-from accounts.models import UserProfile, Posts
+from accounts.forms import EditProfileForm, ImageUploadForm, CreatePostForm, CreateCommentForm
+from accounts.models import UserProfile, Posts, Comments
 
 # Create your views here.
 def home(request):
@@ -88,3 +88,19 @@ def view_post(request, pk):
     post = Posts.objects.get(pk=pk)
     args = {'post': post}
     return render(request, 'accounts/view_post.html', args)
+
+def create_comment(request, pk):
+    if request.method == 'POST':
+        form = CreateCommentForm(request.POST)
+        if form.is_valid():
+            obj = Comments.objects.create()
+            obj.comment = form.cleaned_data['comment']
+            obj.save()
+            post = Posts.objects.get(pk=pk)
+            args = {'post': post}
+            return render(request, 'accounts/view_post.html', args)
+    else:
+        form = CreateCommentForm()
+        args = {'form': form}
+        return render(request, 'accounts/create_comment.html', args)
+    return HttpResponse('I hate life')
