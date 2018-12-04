@@ -83,3 +83,8 @@ def create_post(request):
         args = {'form': form}
         return render(request, 'accounts/create_post.html', args)
     return HttpResponse('Something went wrong')
+
+def view_post(request, pk):
+    post = Posts.objects.get(pk=pk)
+    args = {'post': post}
+    return render(request, 'accounts/view_post.html')

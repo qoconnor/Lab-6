@@ -16,6 +16,7 @@ urlpatterns = [
     path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('profile_pic/', views.upload_pic, name='upload_pic'),
     path('create_post/', views.create_post, name='create_post'),
+    url(r'^view_post/(?P<pk>\d+)/$', views.view_post, name='view_post'),
 ]
 
 #if settings.DEBUG:
