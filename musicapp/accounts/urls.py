@@ -18,6 +18,8 @@ urlpatterns = [
     path('create_post/', views.create_post, name='create_post'),
     url(r'^view_post/(?P<pk>\d+)/$', views.view_post, name='view_post'),
     url(r'^create_comment/(?P<pk>\d+)/$', views.create_comment, name='create_comment'),
+    path('my_posts/', views.my_posts, name='my_posts'),
+    path('popular', views.popular, name='popular'),
 ]
 
 #if settings.DEBUG:

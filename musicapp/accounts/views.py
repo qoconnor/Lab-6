@@ -10,6 +10,11 @@ def home(request):
     args = {'posts': posts}
     return render(request, 'accounts/home.html', args)
 
+def popular(request):
+    posts = Posts.objects.all().order_by('-views')
+    args = {'posts': posts}
+    return render(request, 'accounts/popular.html', args)
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -86,6 +91,8 @@ def create_post(request):
 
 def view_post(request, pk):
     post = Posts.objects.get(pk=pk)
+    post.views = post.views + 1
+    post.save()
     comments = Comments.objects.filter(commentPk=pk)
     args = {'post': post, 'comments': comments}
     return render(request, 'accounts/view_post.html', args)
@@ -108,3 +115,8 @@ def create_comment(request, pk):
         args = {'form': form}
         return render(request, 'accounts/create_comment.html', args)
     return HttpResponse('I hate life')
+
+def my_posts(request):
+        posts = Posts.objects.filter(fromUser=request.user).order_by("-id")
+        args = {'posts': posts}
+        return render(request, 'accounts/my_posts.html', args)
