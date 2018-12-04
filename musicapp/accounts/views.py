@@ -6,7 +6,7 @@ from accounts.models import UserProfile, Posts
 
 # Create your views here.
 def home(request):
-    posts = Posts.objects.all()
+    posts = Posts.objects.all().order_by("-id")
     args = {'posts': posts}
     return render(request, 'accounts/home.html', args)
 
@@ -87,4 +87,4 @@ def create_post(request):
 def view_post(request, pk):
     post = Posts.objects.get(pk=pk)
     args = {'post': post}
-    return render(request, 'accounts/view_post.html')
+    return render(request, 'accounts/view_post.html', args)
