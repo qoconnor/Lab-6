@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from accounts.forms import EditProfileForm, ImageUploadForm, CreatePostForm, CreateCommentForm
@@ -35,7 +35,12 @@ def register(request):
         return render(request, 'accounts/reg_form.html', args)
 
 def view_profile(request):
-    args = {'user': request.user}
+    username = request.GET.get('p');
+    user = get_object_or_404(User,username=username)
+    editable = False
+    if request.user.is_authenticated and request.user == user:
+        editable=True
+    args = {'user': user, 'editable':editable}
     return render(request, 'accounts/profile.html', args)
 
 def edit_profile(request):
