@@ -5,10 +5,10 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
 class EditProfileForm(forms.Form):
-    description = forms.CharField(label='Bio:')
-    song = forms.CharField(label='Favorite Song:')
-    artist = forms.CharField(label='Favorite Artist:')
-    album = forms.CharField(label='Favorite Album:')
+    description = forms.CharField(label='Bio:', required=False)
+    song = forms.CharField(label='Favorite Song:', required=False)
+    artist = forms.CharField(label='Favorite Artist:', required=False)
+    album = forms.CharField(label='Favorite Album:', required=False)
 
 class ImageUploadForm(forms.Form):
     image = forms.ImageField()

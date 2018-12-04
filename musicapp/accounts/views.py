@@ -19,7 +19,15 @@ def home(request):
     return render(request, 'accounts/home.html', args)
 
 def popular(request):
-    posts = Posts.objects.all().order_by('-views')
+    search_term = ''
+    if 'search' in request.GET:
+        search_term = request.GET['search']
+        posts = Posts.objects.filter(title__icontains=search_term).order_by('-views')
+        posts = posts | Posts.objects.filter(artist__icontains=search_term).order_by('-views')
+        posts = posts | Posts.objects.filter(post__icontains=search_term).order_by('-views')
+        posts = posts | Posts.objects.filter(song__icontains=search_term).order_by('-views')
+    else:
+        posts = Posts.objects.all().order_by('-views')
     args = {'posts': posts}
     return render(request, 'accounts/popular.html', args)
 
@@ -56,7 +64,7 @@ def edit_profile(request):
                 user.album = form.cleaned_data['album']
                 user.artist = form.cleaned_data['artist']
                 user.save()
-                return redirect('/account/profile')
+                return redirect('/account/profile/?p='+request.user.username)
             except:
                 return HttpResponse("Something went wrong")
     else:
