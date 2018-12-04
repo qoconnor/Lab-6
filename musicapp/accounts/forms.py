@@ -21,3 +21,6 @@ class CreatePostForm(forms.Form):
     song = forms.CharField(label='Song:', required=False)
     artist = forms.CharField(label='Artist:', required=False)
     public = forms.BooleanField(required=False)
+
+class CreateCommentForm(forms.Form):
+    comment = forms.CharField(label='Comment:', required=True)

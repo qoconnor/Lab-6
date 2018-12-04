@@ -26,3 +26,7 @@ class Posts(models.Model):
     artist = models.CharField(max_length=100, default='N/A')
     artwork = models.ImageField(blank=True, default='default.jpg')
     public = models.BooleanField(default=False)
+
+class Comments(models.Model):
+    commentUser = models.ForeignKey(User, on_delete=models.CASCADE, related_name='commentUser', null=True)
+    comment = models.CharField(max_length=300)
