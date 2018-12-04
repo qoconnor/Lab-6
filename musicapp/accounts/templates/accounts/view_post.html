@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<div class="container" align="center">
+<div class="jumbotron" align="left">
   <div class="container">
     <p>{{ post.views }} views</p>
     <h3>{{ post.title }}</h3>
@@ -9,10 +11,10 @@
         {% if post.album %}
           <h6>Album: {{ post.album }}</h6>
         {% endif %}
-        {% if post.album %}
+        {% if post.artist %}
           <h6>Artist: {{ post.artist }}</h6>
         {% endif %}
-        {% if post.album %}
+        {% if post.song %}
           <h6>Song: {{ post.song }}</h6>
         {% endif %}
         <p> {{ post.post }} </p>
@@ -29,4 +31,6 @@
       </div>
     </div>
   </div>
+</div>
+</div>
 {% endblock %}

@@ -6,8 +6,16 @@ from accounts.models import UserProfile, Posts, Comments
 
 # Create your views here.
 def home(request):
-    posts = Posts.objects.all().order_by("-id")
-    args = {'posts': posts}
+    search_term = ''
+    if 'search' in request.GET:
+        search_term = request.GET['search']
+        posts = Posts.objects.filter(title__icontains=search_term)
+        posts = posts | Posts.objects.filter(artist__icontains=search_term)
+        posts = posts | Posts.objects.filter(post__icontains=search_term)
+        posts = posts | Posts.objects.filter(song__icontains=search_term)
+    else:
+        posts = Posts.objects.all().order_by("-id")
+    args = {'posts': posts, 'search_term': search_term}
     return render(request, 'accounts/home.html', args)
 
 def popular(request):
@@ -80,7 +88,9 @@ def create_post(request):
                 obj.artist = form.cleaned_data['artist']
                 obj.public = form.cleaned_data['public']
                 obj.save()
-                return render(request, 'accounts/home.html') #Need to edit later
+                posts = Posts.objects.all().order_by("-id")
+                args = {'posts': posts}
+                return render(request, 'accounts/home.html', args) #Need to edit later
             #except:
                 #return HttpResponse('Something went wrong when creating a post.')
     else:
@@ -111,13 +121,16 @@ def create_comment(request, pk):
             obj.save()
             post = Posts.objects.get(pk=pk)
             comments = Comments.objects.filter(commentPk=pk).order_by("-id")
-            args = {'post': post, 'comments': comments}
+            delete = 0
+            if request.user == post.fromUser:
+                delete = 1
+            args = {'post': post, 'comments': comments, 'delete': delete}
             return render(request, 'accounts/view_post.html', args)
     else:
         form = CreateCommentForm()
         args = {'form': form}
         return render(request, 'accounts/create_comment.html', args)
-    return HttpResponse('I hate life')
+    return HttpResponse('Somethign went wrong')
 
 def my_posts(request):
         posts = Posts.objects.filter(fromUser=request.user).order_by("-id")
