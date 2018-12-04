@@ -94,7 +94,10 @@ def view_post(request, pk):
     post.views = post.views + 1
     post.save()
     comments = Comments.objects.filter(commentPk=pk)
-    args = {'post': post, 'comments': comments}
+    delete = 0
+    if request.user == post.fromUser:
+        delete = 1
+    args = {'post': post, 'comments': comments, 'delete': delete}
     return render(request, 'accounts/view_post.html', args)
 
 def create_comment(request, pk):
@@ -120,3 +123,10 @@ def my_posts(request):
         posts = Posts.objects.filter(fromUser=request.user).order_by("-id")
         args = {'posts': posts}
         return render(request, 'accounts/my_posts.html', args)
+
+def remove_post(request, pk):
+    post = Posts.objects.get(pk=pk)
+    post.delete()
+    posts = Posts.objects.all().order_by("-id")
+    args = {'posts': posts}
+    return render(request, 'accounts/home.html', args)
