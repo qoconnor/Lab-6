@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from accounts.forms import EditProfileForm, ImageUploadForm, CreatePostForm, CreateCommentForm
 from accounts.models import UserProfile, Posts, Comments
+import datetime
 
 # Create your views here.
 def home(request):
@@ -99,7 +100,6 @@ def create_post(request):
                 obj.album = form.cleaned_data['album']
                 obj.song = form.cleaned_data['song']
                 obj.artist = form.cleaned_data['artist']
-                obj.public = form.cleaned_data['public']
                 obj.save()
                 posts = Posts.objects.all().order_by("-id")
                 args = {'posts': posts}
@@ -120,7 +120,8 @@ def view_post(request, pk):
     delete = 0
     if request.user == post.fromUser:
         delete = 1
-    args = {'post': post, 'comments': comments, 'delete': delete}
+    now = datetime.datetime.now()
+    args = {'post': post, 'comments': comments, 'delete': delete, 'now': now}
     return render(request, 'accounts/view_post.html', args)
 
 def create_comment(request, pk):
@@ -137,18 +138,19 @@ def create_comment(request, pk):
             delete = 0
             if request.user == post.fromUser:
                 delete = 1
-            args = {'post': post, 'comments': comments, 'delete': delete}
+            now = datetime.datetime.now()
+            args = {'post': post, 'comments': comments, 'delete': delete, 'now': now}
             return render(request, 'accounts/view_post.html', args)
     else:
         form = CreateCommentForm()
         args = {'form': form}
         return render(request, 'accounts/create_comment.html', args)
-    return HttpResponse('Somethign went wrong')
+    return HttpResponse('Something went wrong')
 
 def my_posts(request):
-        posts = Posts.objects.filter(fromUser=request.user).order_by("-id")
-        args = {'posts': posts}
-        return render(request, 'accounts/my_posts.html', args)
+    posts = Posts.objects.filter(fromUser=request.user).order_by("-id")
+    args = {'posts': posts}
+    return render(request, 'accounts/my_posts.html', args)
 
 def remove_post(request, pk):
     post = Posts.objects.get(pk=pk)

@@ -20,7 +20,7 @@ urlpatterns = [
     url(r'^remove_post/(?P<pk>\d+)/$', views.remove_post, name='remove_post'),
     url(r'^create_comment/(?P<pk>\d+)/$', views.create_comment, name='create_comment'),
     path('my_posts/', views.my_posts, name='my_posts'),
-    path('popular', views.popular, name='popular'),
+    path('popular/', views.popular, name='popular'),
 ]
 
 #if settings.DEBUG:

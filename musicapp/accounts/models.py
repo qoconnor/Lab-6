@@ -24,8 +24,7 @@ class Posts(models.Model):
     album = models.CharField(max_length=100, default='N/A')
     song = models.CharField(max_length=100, default='N/A')
     artist = models.CharField(max_length=100, default='N/A')
-    artwork = models.ImageField(blank=True, default='default.jpg')
-    public = models.BooleanField(default=False)
+    artwork = models.ImageField(blank=True, upload_to = 'media', default='default.jpg')
     views = models.IntegerField(default=0)
 
 class Comments(models.Model):

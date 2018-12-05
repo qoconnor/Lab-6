@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<div class="container" align="center">
+<div class="jumbotron" align="left">
   <div class="container">
     <form method="post">
       {% csrf_token %}
@@ -8,4 +10,7 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
+</div>
+</div>
+
 {% endblock %}
