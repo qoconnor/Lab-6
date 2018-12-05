@@ -16,6 +16,7 @@ def home(request):
         posts = posts | Posts.objects.filter(song__icontains=search_term)
     else:
         posts = Posts.objects.all().order_by("-id")
+    posts = posts[:20]
     args = {'posts': posts, 'search_term': search_term}
     return render(request, 'accounts/home.html', args)
 
@@ -29,6 +30,7 @@ def popular(request):
         posts = posts | Posts.objects.filter(song__icontains=search_term).order_by('-views')
     else:
         posts = Posts.objects.all().order_by('-views')
+    posts = posts[:10]
     args = {'posts': posts}
     return render(request, 'accounts/popular.html', args)
 
