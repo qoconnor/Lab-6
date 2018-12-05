@@ -46,13 +46,16 @@ def register(request):
         return render(request, 'accounts/reg_form.html', args)
 
 def view_profile(request):
-    username = request.GET.get('p');
-    user = get_object_or_404(User,username=username)
-    editable = False
-    if request.user.is_authenticated and request.user == user:
-        editable=True
-    args = {'user': user, 'editable':editable}
-    return render(request, 'accounts/profile.html', args)
+    try:
+        username = request.GET.get('p');
+        user = get_object_or_404(User,username=username)
+        editable = False
+        if request.user.is_authenticated and request.user == user:
+            editable=True
+            args = {'user': user, 'editable':editable}
+            return render(request, 'accounts/profile.html', args)
+    except:
+            return HttpResponse('There was an error loading the page')
 
 def edit_profile(request):
     if request.method == 'POST':
